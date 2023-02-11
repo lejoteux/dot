@@ -1,0 +1,26 @@
+#   kitty.conf
+#   Kitty terminal configuration file.
+
+enable_audio_bell no
+include colors.ini
+
+font_family {{ .kitty_font_family }}
+font_size {{ .kitty_font_size }}
+
+url_style curly
+
+cursor_shape beam
+cursor_beam_thickness 1.8
+
+repaint_delay 10
+input_delay 3
+sync_to_monitor yes
+
+window_padding_width 0
+background_opacity 0.95
+
+map ctrl+shift+f5 load_config_file
+
+shell {{ .kitty_shell }}
+
+# vim: ft=conf ts=2 sw=2 sts=2 et fenc=utf-8
