@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+#   run_onchange_install-packages.zsh
+#   Script to install the required packages on each system.
+
+{{ if eq .chezmoi.os "darwin" }}
+{{ if lookPath "brew" }}
+brew install --cask {{ .brew_casks | join " " }}
+brew tap homebrew/cask-fonts
+brew install {{ .brew_cask_fonts | join " " }}
+{{ end }}
+{{ end }}
+
+{{ if lookPath "nix-env" }}
+nix_packages=( {{ .nix_packages | join " " }} )
+nix-env -iA nixpkgs.${^nix_packages}
+{{ end }}
+
+# vim: ft=zsh ts=2 sw=2 sts=2 et fenc=utf-8
