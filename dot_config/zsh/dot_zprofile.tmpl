@@ -1,0 +1,27 @@
+#   .zprofile
+#   More environment. This file is sourced on login shells.
+
+# -- PATH --------------------------------------------------------------
+# ----------------------------------------------------------------------
+
+# The path is set here for consistency between systems. On macOS, the
+# /etc/zprofile startup file uses a script that rearranges the PATH
+# and can mess up the desired order. To circumvent this, we reset the
+# path order here as this file is sourced right after /etc/zprofile.
+
+path=( "$HOME/.local/bin" "$path[@]" )
+
+{{ if eq .chezmoi.os "darwin" }}
+path=( "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin" "$path[@]" )
+{{ end }}
+
+# -- NIX ---------------------------------------------------------------
+# ----------------------------------------------------------------------
+
+# This script prepends some directories to the PATH. It should be taken
+# into account for the desired final PATH arrangement.
+if [[ -f '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]]; then
+  source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+
+# vim: ft=zsh ts=2 sw=2 sts=2 et fenc=utf-8

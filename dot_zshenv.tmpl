@@ -1,0 +1,41 @@
+#   .zshenv
+#   Global environment. This file is sourced for each shell.
+
+# -- XDG Base Directory Specification ----------------------------------
+# ----------------------------------------------------------------------
+
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_CACHE_DIR="${XDG_CACHE_DIR:-$HOME/.cache}"
+
+# -- ZSH ENVIRONMENT ---------------------------------------------------
+# ----------------------------------------------------------------------
+
+ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export ZSH_CONFIG="$ZDOTDIR/config"
+export ZSH_CUSTOM="$ZDOTDIR/custom"
+export ZSH_CONFIG="$ZDOTDIR/config"
+export ZSH_CACHE_DIR="$XDG_CACHE_DIR/zsh"
+
+# -- ENVIRONMENT -------------------------------------------------------
+# ----------------------------------------------------------------------
+
+{{ if eq .chezmoi.os "darwin" }}
+export HOMEBREW_PREFIX="/opt/homebrew"
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+export HOMEBREW_REPOSITORY="/opt/homebrew"
+
+export MANPATH="$HOMEBREW_PREFIX/share/man${MANPATH+:$MANPATH}"
+export INFOPATH="$HOMEBREW_PREFIX/share/info${INFOPATH+:$INFOPATH}"
+{{ end }}
+
+export EDITOR="nvim"
+export PAGER="less"
+export LESSHISTFILE="$XDG_DATA_HOME/less/history"
+
+# -- PATH --------------------------------------------------------------
+# ----------------------------------------------------------------------
+
+typeset -U PATH path
+
+# vim: ft=zsh ts=2 sw=2 sts=2 et fenc=utf-8

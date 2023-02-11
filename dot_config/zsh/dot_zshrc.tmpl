@@ -1,0 +1,72 @@
+#   .zshrc
+#   Setup for interactive shells.
+
+# -- CUSTOMIZATION -----------------------------------------------------
+# ----------------------------------------------------------------------
+
+plugins=( {{ .zsh_plugins | join " " }} )
+theme={{ .zsh_theme }}
+prompt_config={{ .zsh_prompt_config }}
+
+{{ if .zsh_p10k_instant_prompt }}
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+{{ end }}
+
+# -- MISC --------------------------------------------------------------
+# ----------------------------------------------------------------------
+
+setopt INTERACTIVECOMMENTS
+setopt MAGICEQUALSUBST
+setopt NOTIFY
+setopt NUMERICGLOBSORT
+
+# Load required stock functions.
+autoload -Uz compaudit compinit zrecompile
+compinit
+
+# -- NIX --------------------------------------------------------------
+#----------------------------------------------------------------------
+
+if [[ -f '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]]; then
+  source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+
+# -- PLUGINS ----------------------------------------------------------
+#----------------------------------------------------------------------
+
+for plugin ( $plugins ); do
+  if [[ -f "$ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh" ]]; then
+    source "$ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh"
+  elif [[ -f "$ZSH_CUSTOM/plugins/$plugin/$plugin.zsh" ]]; then
+    source "$ZSH_CUSTOM/plugins/$plugin/$plugin.zsh"
+  fi
+done
+unset plugin plugins
+
+# -- CONFIG -----------------------------------------------------------
+# ---------------------------------------------------------------------
+
+for config_file ( "$ZSH_CONFIG"/*.zsh(N) ); do
+  source "$config_file"
+done
+unset config_file
+
+# -- PROMPT -----------------------------------------------------------
+# ---------------------------------------------------------------------
+
+if [[ -n "$prompt_config" && -f "$ZSH_CUSTOM/prompts/$prompt_config.zsh" ]]; then
+  source "$ZSH_CUSTOM/prompts/$prompt_config.zsh"
+fi
+unset prompt_config
+
+# -- THEME ------------------------------------------------------------
+#----------------------------------------------------------------------
+
+if [[ -n "$theme" && -f "$ZSH_CUSTOM/themes/$theme/$theme.zsh-theme"  ]]; then
+  source "$ZSH_CUSTOM/themes/$theme/$theme.zsh-theme"
+fi
+unset theme
+
+# vim: ft=zsh sw=2 ts=2 sts=2 et fenc=utf-8
