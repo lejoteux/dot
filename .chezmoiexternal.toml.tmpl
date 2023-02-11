@@ -12,4 +12,11 @@
     stripComponents = 1
     refreshPeriod = "168h"
 
+{{ if eq .neovim_flavor "astronvim" }}
+[".config/nvim"]
+    type = "git-repo"
+    url = "https://github.com/AstroNvim/AstroNvim"
+    refreshPeriod = "168h"
+{{ end }}
+
 # vim: ft=toml ts=4 sw=4 sts=4 et fenc=utf-8
