@@ -4,15 +4,21 @@
 
 {{ if eq .chezmoi.os "darwin" }}
 {{ if lookPath "brew" }}
+{{ if .brew_casks }}
 brew install --cask {{ .brew_casks | join " " }}
+{{ end }}
 brew tap homebrew/cask-fonts
+{{ if .brew_cask_fonts }}
 brew install {{ .brew_cask_fonts | join " " }}
+{{ end }}
 {{ end }}
 {{ end }}
 
 {{ if lookPath "nix-env" }}
+{{ if .nix_packages }}
 nix_packages=( {{ .nix_packages | join " " }} )
 nix-env -iA nixpkgs.${^nix_packages}
+{{ end }}
 {{ end }}
 
 # vim: ft=zsh ts=2 sw=2 sts=2 et fenc=utf-8

@@ -8,18 +8,19 @@
                   "kitty",    # fast, feature-rich, GPU based terminal emulator
                   "karabiner-elements"  # powerful and stable keyboard customizer
                   ]
-    brew_cask_fonts = ["font-iosevka-nerd-font"]
+    brew_cask_fonts = []
     {{- end }}
     nix_packages = ["fzf",      # command-line fuzzy finder
                     "lsd",      # the next gen ls command
                     "neovim",   # powerful command-line text editor
                     "ripgrep",  # very fast grep replacement
                     "tmux",     # terminal multiplexer
-                    "zsh"       # extended version of the Bourne Shell (sh)
+                    "zsh",      # extended version of the Bourne Shell (sh)
+                    "_7zz"      # command-line archiver utility
                     ]
 
     # -- KITTY ---------------------------------------------------------
-    kitty_font_family = "Iosevka Term"
+    kitty_font_family = ""
     kitty_font_size = 12
     kitty_shell = "zsh --login"
 
