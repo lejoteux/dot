@@ -4,6 +4,9 @@
 
 {{ if eq .chezmoi.os "darwin" }}
 {{ if lookPath "brew" }}
+{{ if .brew_formulae }}
+brew install {{ .brew_formulae | join " " }}
+{{end}}
 {{ if .brew_casks }}
 brew install --cask {{ .brew_casks | join " " }}
 {{ end }}
