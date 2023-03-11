@@ -1,0 +1,9 @@
+LICENSE
+**/*.zwc
+
+{{ if eq .chezmoi.os "windows" }}
+.zshenv
+.config/zsh/
+.config/karabiner/
+.config/kitty/
+{{ end }}

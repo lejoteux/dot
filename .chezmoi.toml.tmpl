@@ -1,42 +1,108 @@
 #   .chezmoi.toml
 #   Chezmoi configuration variables.
 
+# -- CD ----------------------------------------------------------------
+[cd]
+    {{ if eq .chezmoi.os "windows" }}
+    command = "pwsh"
+    args = ["-NoLogo", "-NoExit"]
+    {{ end }}
+
+# -- EDIT --------------------------------------------------------------
+[edit]
+    command = "nvim"
+
+# -- INTERPRETERS ------------------------------------------------------
+[interpreters.ps1]
+    command = "pwsh"
+    args = ["-NoLogo"]
+
+# -- DATA --------------------------------------------------------------
 [data]
-    # -- PACKAGES ------------------------------------------------------
-    {{- if eq .chezmoi.os "darwin" }}
-    brew_formulae = ["robotsandpencils/made/xcodes", # command-line xcode version manager
-                     "mint"  # package manager for executable swift packages
-                     ]
-    brew_casks = ["firefox",  # free and open-source web browser
-                  "kitty",    # fast, feature-rich, GPU based terminal emulator
-                  "karabiner-elements",  # powerful and stable keyboard customizer
-                  "amethyst"
-                  ]
-    brew_cask_fonts = []
-    {{- end }}
-    nix_packages = ["fzf",      # command-line fuzzy finder
-                    "lsd",      # the next gen ls command
-                    "neovim",   # powerful command-line text editor
-                    "ripgrep",  # very fast grep replacement
-                    "tmux",     # terminal multiplexer
-                    "zsh",      # extended version of the Bourne Shell (sh)
-                    "_7zz",     # command-line archiver utility
-                    "aria2",    # lightweight multi-protocol command-line download utility
-                    "python3"   # high-level dynamically-typed programming language
-                    ]
+    {{ if eq .chezmoi.os "darwin" }}
+    fontDir = "Library/Fonts"
+    {{ else if eq .chezmoi.os "linux" }}
+    fontDir = ".local/share/fonts"
+    {{ else if eq .chezmoi.os "windows" }}
+    fontDir = ""
+    {{ end }}
 
-    # -- KITTY ---------------------------------------------------------
-    kitty_font_family = ""
-    kitty_font_size = 12
-    kitty_shell = "zsh --login"
+# -- PACKAGES ----------------------------------------------------------
+[data.packages]
+    {{ if eq .chezmoi.os "windows" }}
+    choco = ["7zip",    # foss file archiver with high compression ratio
+             "aria2",   # lightweight multi-protocol command-line download utility
+             "git",     # free and open source version control system
+             "neovim",  # powerful command-line text editor
+             "nerd-fonts-inconsolata",  # Inconsolata font patched with NerdFont glyphs
+             "nodejs",  # JavaScript runtime built on Chrome's V8 JavaScript engine
+             "python",  # high-level dynamically-typed programming language
+             "ripgrep"  # very fast grep replacement
+             ]
+    winget = ["Discord.Discord",
+              "GitHub.cli",
+              "JanDeDobbeleer.OhMyPosh",
+              "Logitech.GHUB",
+              "Microsoft.VisualStudioCode",
+              "Mozilla.Firefox",
+              "Nvidia.GeForceExperience",
+              "Valve.Steam"
+              ]
+    {{ end }}
 
-    # -- ZSH -----------------------------------------------------------
-    zsh_plugins = ["zsh-autosuggestions", "fzf"]
-    zsh_theme = "powerlevel10k"
-    zsh_prompt_config = "pure"
-    zsh_p10k_instant_prompt = true
+[data.packages.brew]
+    {{ if eq .chezmoi.os "darwin" }}
+    formulae = ["robotsandpencils/made/xcodes",  # command-line xcode version manager
+                "mint"  # package manager for executable swift packages
+                ]
+    casks = ["firefox",  # free and open-source web browser
+             "kitty",    # fast, feature-rich, GPU based terminal emulator
+             "karabiner-elements",  # powerful and stable keyboard customizer
+             "amethyst",  # open source tiling windows manager for macos
+             "bitwarden"  # open source password manager
+             ]
+    {{ end }}
 
-    # -- NEOVIM --------------------------------------------------------
-    neovim_flavor = "astronvim"
+[data.packages.nix]
+    {{ if eq .chezmoi.os "darwin" }}
+    nixpkgs = ["fzf",      # command-line fuzzy finder
+               "lsd",      # the next gen ls command
+               "neovim",   # powerful command-line text editor
+               "ripgrep",  # very fast grep replacement
+               "tmux",     # terminal multiplexer
+               "zsh",      # extended version of the Bourne Shell (sh)
+               "_7zz",     # command-line archiver utility
+               "aria2",    # lightweight multi-protocol command-line download utility
+               "python3"   # high-level dynamically-typed programming language
+               ]
+    {{ end }}
+
+# -- KITTY -------------------------------------------------------------
+[data.kitty]
+    {{ if eq .chezmoi.os "darwin" }}
+    fontFamily = ""
+    fontSize = 12
+    shell = "zsh --login"
+    {{ end }}
+
+# -- ZSH ---------------------------------------------------------------
+[data.zsh]
+    {{ if eq .chezmoi.os "darwin" }}
+    plugins = ["zsh-autosuggestions", "fzf"]
+    theme = "powerlevel10k"
+    promptConfig = "pure"
+    p10k.instantPrompt = true
+    {{ end }}
+
+# -- NEOVIM ------------------------------------------------------------
+[data.neovim]
+    {{ if eq .chezmoi.os "darwin" }}
+    dir = ".config"
+    flavor = "astronvim"
+    {{ end }}
+    {{ if eq .chezmoi.os "windows" }}
+    dir = "AppData\\\\Local"
+    flavor = "astronvim"
+    {{ end }}
 
 # vim: ft=toml ts=4 sw=4 sts=4 et fenc=utf-8

@@ -1,0 +1,28 @@
+{{ if eq .chezmoi.os "windows" }}
+{{   if .packages.choco }}
+Write-Host "Installing choco packages (requires Admin privileges)..."
+gsudo {
+    choco upgrade all -y
+    Update-Module
+
+    choco install {{ .packages.choco | join " " }} -y
+}
+{{   end }}
+
+# -- WINGET PACKAGES ----------------------------------------------------
+function wingetInstallIfNotInstalled($id)
+{
+    winget list --exact --id $id || winget install --exact --id $id --interactive
+}
+
+{{   if .packages.winget }}
+$wingetPackages = {{ .packages.winget | quoteList | join "," }}
+Write-Host "Installing winget packages..."
+
+foreach ($package in $wingetPackages)
+{
+    wingetInstallIfNotInstalled($package)
+}
+{{   end }}
+{{ end }}
+# vim: ft=ps1 ts=4 sw=4 sts=4 et fenc=utf-8
