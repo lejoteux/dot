@@ -4,7 +4,7 @@
 enable_audio_bell no
 include colors.ini
 
-font_size {{ .kitty_font_size }}
+font_size {{ .kitty.fontSize }}
 
 url_style curly
 
@@ -20,6 +20,6 @@ background_opacity 0.95
 
 map ctrl+shift+f5 load_config_file
 
-shell {{ .kitty_shell }}
+shell {{ .kitty.shell }}
 
 # vim: ft=conf ts=2 sw=2 sts=2 et fenc=utf-8

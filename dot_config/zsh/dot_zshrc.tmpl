@@ -4,11 +4,11 @@
 # -- CUSTOMIZATION -----------------------------------------------------
 # ----------------------------------------------------------------------
 
-plugins=( {{ .zsh_plugins | join " " }} )
-theme={{ .zsh_theme }}
-prompt_config={{ .zsh_prompt_config }}
+plugins=( {{ .zsh.plugins | join " " }} )
+theme={{ .zsh.theme }}
+prompt_config={{ .zsh.promptConfig }}
 
-{{ if .zsh_p10k_instant_prompt }}
+{{ if .zsh.p10k.instantPrompt }}
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
