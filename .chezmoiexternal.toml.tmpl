@@ -28,6 +28,14 @@
     refreshPeriod = "168h"
 {{ end }}
 
+# -- NODENV ------------------------------------------------------------
+{{ if eq .chezmoi.os "darwin" }}
+[".config/nodenv/plugins/node-build"]
+    type = "git-repo"
+    url = "https://github.com/nodenv/node-build"
+    refreshPeriod = "168h"
+{{ end }}
+
 # -- FONTS -------------------------------------------------------------
 {{ if .fontDir }}
 ["{{ .fontDir }}/Symbols-2048-em Nerd Font Complete Mono.ttf"]

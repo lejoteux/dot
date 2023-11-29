@@ -73,7 +73,8 @@
                "_7zz",     # command-line archiver utility
                "aria2",    # lightweight multi-protocol command-line download utility
                "python3",  # high-level dynamically-typed programming language
-               "gnupg"     # GNU Privacy Guard (OpenPGP implementation)
+               "gnupg",    # GNU Privacy Guard (OpenPGP implementation)
+               "nodenv"    # NodeJS version manager
                ]
     {{ end }}
 
@@ -88,7 +89,7 @@
 # -- ZSH ---------------------------------------------------------------
 [data.zsh]
     {{ if eq .chezmoi.os "darwin" }}
-    plugins = ["zsh-autosuggestions", "fzf"]
+    plugins = ["zsh-autosuggestions", "fzf", "nodenv"]
     theme = "powerlevel10k"
     promptConfig = "pure"
     p10k.instantPrompt = true
