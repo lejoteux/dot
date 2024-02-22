@@ -89,9 +89,9 @@
 # -- ZSH ---------------------------------------------------------------
 [data.zsh]
     {{ if eq .chezmoi.os "darwin" }}
-    plugins = ["zsh-autosuggestions", "fzf", "nodenv"]
+    plugins = ["zsh-autosuggestions", "fzf", "nodenv", "rust", "mise"]
     theme = "powerlevel10k"
-    promptConfig = "pure"
+    promptConfig = "rainbow"
     p10k.instantPrompt = true
     {{ end }}
 
@@ -99,7 +99,7 @@
 [data.neovim]
     {{ if eq .chezmoi.os "darwin" }}
     dir = ".config"
-    flavor = "astronvim"
+    flavor = "lazyvim"
     {{ end }}
     {{ if eq .chezmoi.os "windows" }}
     dir = "AppData\\\\Local"

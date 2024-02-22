@@ -11,6 +11,14 @@
     refreshPeriod = "168h"
 {{ end }}
 
+# -- LAZYVIM -----------------------------------------------------------
+{{ if eq .neovim.flavor "lazyvim" }}
+["{{ .neovim.dir }}/nvim"]
+    type = "git-repo"
+    url = "https://github.com/lejoteux/lazyvim"
+    refreshPeriod = "168h"
+{{ end }}
+
 # -- ZSH ---------------------------------------------------------------
 {{ if (or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux")) }}
 [".config/zsh/custom/plugins/zsh-autosuggestions"]
@@ -41,6 +49,14 @@
 ["{{ .fontDir }}/Symbols-2048-em Nerd Font Complete Mono.ttf"]
     type = "file"
     url = "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/NerdFontsSymbolsOnly/SymbolsNerdFontMono-Regular.ttf"
+    refreshPeriod = "168h"
+{{ end }}
+
+# -- TMUX PLUGIN MANAGER -----------------------------------------------
+{{ if (or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux")) }}
+[".tmux/plugins/tpm"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tpm"
     refreshPeriod = "168h"
 {{ end }}
 

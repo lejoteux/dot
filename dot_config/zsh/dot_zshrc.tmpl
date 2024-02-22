@@ -14,6 +14,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 {{ end }}
 
+if [[ "$TERM_PROGRAM" == "WarpTerminal" ]]; then
+  # Warpify subshells
+  printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh"}}\x9c'
+fi
+
 # -- MISC --------------------------------------------------------------
 # ----------------------------------------------------------------------
 
@@ -21,6 +26,11 @@ setopt INTERACTIVECOMMENTS
 setopt MAGICEQUALSUBST
 setopt NOTIFY
 setopt NUMERICGLOBSORT
+
+# -- AUTOCOMPLETION ----------------------------------------------------
+# ----------------------------------------------------------------------
+
+fpath=( "$fpath[@]" "$ZSH_CUSTOM/completion/" )
 
 # Load required stock functions.
 autoload -Uz compaudit compinit zrecompile
