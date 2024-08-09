@@ -19,7 +19,7 @@ alias -g .....='../../../..'
 alias -g ......='../../../../..'
 
 if [[ $commands[lsd] ]]; then
-  alias -g ls='lsd --color=auto --group-dirs=first'
+  alias ls='lsd --color=auto --group-dirs=first'
 fi
 
 alias ll='ls -lh'
