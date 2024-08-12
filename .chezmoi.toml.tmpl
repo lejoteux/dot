@@ -72,9 +72,9 @@
                "zsh",      # extended version of the Bourne Shell (sh)
                "_7zz",     # command-line archiver utility
                "aria2",    # lightweight multi-protocol command-line download utility
-               "python3",  # high-level dynamically-typed programming language
                "gnupg",    # GNU Privacy Guard (OpenPGP implementation)
-               "nodenv"    # NodeJS version manager
+               "nodenv",   # NodeJS version manager
+               "pyenv",    # Python version manager
                ]
     {{ end }}
 
@@ -89,7 +89,7 @@
 # -- ZSH ---------------------------------------------------------------
 [data.zsh]
     {{ if eq .chezmoi.os "darwin" }}
-    plugins = ["zsh-autosuggestions", "fzf", "nodenv", "rust", "mise"]
+    plugins = ["zsh-autosuggestions", "fzf", "nodenv", "rust", "mise", "pyenv"]
     theme = "powerlevel10k"
     promptConfig = "rainbow"
     p10k.instantPrompt = true
